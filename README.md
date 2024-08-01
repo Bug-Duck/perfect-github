@@ -1,5 +1,41 @@
-# Vue 3 + TypeScript + Vite
+# Perfect GitHub
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Developing...
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Plans
+
+- home page
+  - [ ] Users or orgs checking out
+  - [ ] The repo that recently commit
+  - [ ] The Events of each users or orgs
+  - [ ] Search function
+- profile page
+  - [ ] The personal card of GitHub
+  - [ ] The personal README
+  - [ ] Pinned Repos
+  - [ ] Contribution Graph (green stars)
+  - Options
+    - [ ] Starred Repos
+    - [ ] History Visit Repos
+    - [ ] Repos
+    - [ ] Projects
+    - [ ] Packages
+- [ ] Repo Page
+  - [ ] Code
+    - [ ] Code Preview
+    - [ ] Code Editor
+    - [ ] File Tree
+  - [ ] Issue
+  - [ ] Pull Request
+  - [ ] Discussions
+  - [ ] Actions
+  - [ ] Projects
+  - [ ] Security
+  - [ ] Insights
+  - [ ] Repo Settings
+- [ ] Settings
+- [ ] Discover Page
+- [ ] Trending
+- [ ] Notices Page
+- [ ] Login
+- [ ] Sign up
