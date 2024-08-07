@@ -3,28 +3,27 @@
     <Suspense class="w-full">
       <router-view></router-view>
     </Suspense>
-    <Home />
     <BottomMenubar 
       class="fixed bottom-0 left-0 z-50 bg-slate-100"
       v-if="route.path === '/' || route.path === '/profile'"
     />
   </div>
-  <!-- <div>{{ message }}</div> -->
+  <div>{{ message }}</div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, provide, ref } from 'vue'
 import BottomMenubar from './components/BottomMenubar.vue'
 import { Octokit } from '@octokit/rest'
-import Home from './views/Home.vue'
 import { useRouter, useRoute } from 'vue-router'
-
-let octokit
 
 const router = useRouter()
 const route = useRoute()
 
 const message = ref('')
+
+const octokit = ref<Octokit>()
+provide('oc', octokit)
 
 onMounted(() => {
   document.addEventListener('deviceready', () => {
@@ -35,14 +34,13 @@ onMounted(() => {
     )
     storage.get(
       (value: string) => {
-        octokit = new Octokit({
+        octokit.value = new Octokit({
           auth: value
         })
-        provide('oc', octokit)
-        message.value = value
+        // message.value = value
+        router.push('/')
       },
       (_err: Error) => {
-        provide('storage', storage)
         router.push('/auth')
       },
       'token'

@@ -40,9 +40,17 @@
 
 <script setup lang="ts">
 import { Octokit } from '@octokit/rest';
-import { inject } from 'vue';
+import { inject, onMounted, ref, Ref, watch } from 'vue';
 
-const oc = inject('oc') as Octokit
+const oc = inject('oc') as Ref<Octokit>
 
-const events = (await oc.rest.activity.listPublicEvents()).data
+let events: Ref<Array<any>> = ref([])
+
+watch(oc, async (newOc) => {
+  events.value = (await newOc.rest.activity.listPublicEvents()).data
+})
+
+onMounted(async () => {
+  events.value = (await oc.value.rest.activity.listPublicEvents()).data
+})
 </script>

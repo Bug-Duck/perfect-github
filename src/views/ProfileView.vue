@@ -44,15 +44,31 @@
 
 <script setup lang="ts">
 import { Octokit } from '@octokit/rest';
-import { inject } from 'vue';
+import { inject, onMounted, ref, Ref, watch } from 'vue';
 import { StarIcon, BoxIcon, TableIcon, CubeIcon } from '@radix-icons/vue';
 import { parse } from 'marked'
+// import { watch } from 'fs';
 
-const oc = inject('oc') as Octokit
+const oc = inject('oc') as Ref<Octokit>
 
-const profile = (await oc.rest.users.getAuthenticated()).data
-const readme = parse(atob((await oc.repos.getReadme({
-  owner: profile.login,
-  repo: profile.login,
-})).data.content))
+let profile = ref()
+let readme = ref<string>()
+
+// const message = ref('')
+
+async function init() {
+  if (typeof oc.value === 'undefined')
+    return
+  profile.value = (await oc.value.rest.users.getAuthenticated()).data
+  readme.value = parse(atob((await oc.value.repos.getReadme({
+    owner: profile.value.login,
+    repo: profile.value.login,
+  })).data.content)) as string
+}
+
+watch(oc, init)
+
+onMounted(async () => {
+  await init()
+})
 </script>

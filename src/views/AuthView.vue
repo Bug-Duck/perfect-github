@@ -16,18 +16,18 @@ const router = useRouter()
 
 const token = ref<string>('')
 
-function submit() {
+async function submit() {
   const storage = new (window.cordova.plugins as any).SecureStorage(
-    () => {},
-    () => {},
+    () => { },
+    () => { },
     'perfect-github'
   )
   storage.set(
-    (_key: any) => {},
-    (_e: any) => {},
+    (_key: any) => { },
+    (_e: any) => { },
     'token',
     token.value
   )
-  router.replace('/')
+  router.push('/')
 }
 </script>
