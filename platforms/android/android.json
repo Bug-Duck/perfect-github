@@ -4,8 +4,40 @@
     "uninstalled": []
   },
   "config_munge": {
-    "files": {}
+    "files": {
+      "res/xml/config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"SecureStorage\"><param name=\"android-package\" value=\"com.crypho.plugins.SecureStorage\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
   },
-  "installed_plugins": {},
-  "dependent_plugins": {}
+  "installed_plugins": {
+    "cordova-plugin-secure-storage": {
+      "PACKAGE_NAME": "org.bugduck.perfectgithub"
+    },
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "org.bugduck.perfectgithub"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "id": "cordova-plugin-secure-storage.SecureStorage",
+      "file": "plugins/cordova-plugin-secure-storage/www/securestorage.js",
+      "pluginId": "cordova-plugin-secure-storage",
+      "clobbers": [
+        "SecureStorage"
+      ]
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-secure-storage": "3.0.2",
+    "cordova-plugin-console": "1.1.0"
+  }
 }

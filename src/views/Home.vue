@@ -1,36 +1,47 @@
 <template>
-  <div class="m-0 w-full h-14 border">
+  <!-- <div class="m-0 w-full h-14 border">
     <div class="float-left mx-6 text-2xl mt-3">Home</div>
-  </div>
+  </div> -->
   <div class="m-0 w-full h-12 border">
-    <div class="float-left mx-3 mt-1" v-for="avatar in avatars">
-      <img :src="avatar" class="w-10 h-10 rounded-full">
+    <div class="float-left mx-3 mt-1" v-for="index in avatars.length">
+      <img
+        :src="avatars[index - 1]"
+        class="w-10 h-10 rounded-full"
+        @click="currentUser = index - 1"
+        :style="{
+          border: currentUser == index - 1 ? '2px solid green' : 'none',
+        }"
+      >
     </div>
-    <!-- <div class="float-left mx-1 mt-3" v-for=""></div> -->
   </div>
+  <main>
+    <Events/>
+  </main>
+  <div></div>
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from 'vue';
-import { getEvents } from '../apis/get-events'
-import { getOrgsUnderSomeone } from '../apis/get-orgs-under-someone'
-import { getUserData } from '../apis/get-user-data'
+import { Octokit } from '@octokit/rest'
+import { inject, ref, Ref } from 'vue'
+import Events from './Events.vue';
 
-const currentUser: Ref<string> = ref('sheepbox8646')
-const events: Ref<Array<any>> = ref([])
+const oc = inject('oc') as Octokit
 
-getEvents(currentUser.value).then((data) => {
-  events.value.push(...data)
-})
+const currentUser: Ref<number> = ref(0)
+// const events: Ref<Array<any>> = ref([])
 
 const avatars: Ref<Array<string>> = ref([])
 
-getUserData('sheepbox8646').then((data) => {
-  avatars.value.push(data.avatar_url)
+const userdata = await oc.rest.users.getByUsername({
+  username: 'sheepbox8646'
 })
-getOrgsUnderSomeone('sheepbox8646').then((data) => {
-  avatars.value.push(...data.map((org: any) => {
-    return org.avatar_url
-  }))
-})
+avatars.value.push(userdata.data.avatar_url)
+
+const orgs = (await oc.rest.orgs.listForUser({
+  username: 'sheepbox8646'
+})).data
+for (const org of orgs) {
+  avatars.value.push(org.avatar_url)
+}
+
 </script>

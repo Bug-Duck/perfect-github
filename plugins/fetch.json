@@ -1,0 +1,18 @@
+{
+  "cordova-plugin-secure-storage": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-secure-storage@^3.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-console": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-console@^1.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}

@@ -1,16 +1,20 @@
 import { defineAsyncComponent } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 export default createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
-      component: () => import('./views/Home.vue')
+      component: defineAsyncComponent(() => import('./views/Home.vue')),
     },
     {
       path: '/profile',
       component: defineAsyncComponent(() => import('./views/ProfileView.vue'))
+    },
+    {
+      path: '/auth',
+      component: defineAsyncComponent(() => import('./views/AuthView.vue'))
     }
-  ]
+  ],
 })
